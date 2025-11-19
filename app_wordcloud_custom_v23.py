@@ -650,8 +650,7 @@ uploaded_files = st.sidebar.file_uploader(
 
 st.sidebar.markdown("### 🎨 appearance")
 bg_color = st.sidebar.color_picker("background color", value="#ffffff")
-colormap = st.sidebar.selectbox("colormap (for neutral words)", options=["viridis", "plasma", "inferno", "magma", "cividis", "tab10", "tab20", "Dark2", "Set3", "rainbow", "cubehelix", "prism", "Blues", "Greens", "Oranges", "Reds", "Purples", "Greys"], index=17)
-max_words = st.sidebar.slider("max words in word cloud", 50, 3000, 1000, 50)
+colormap = st.sidebar.selectbox("colormap (for neutral words)", options=["viridis", "plasma", "inferno", "magma", "cividis", "tab10", "tab20", "Dark2", "Set3", "rainbow", "cubehelix", "prism", "Blues", "Greens", "Oranges", "Reds", "Purples", "Greys"], index=0)
 width = st.sidebar.slider("image width (px)", 600, 2400, 1200, 100)
 height = st.sidebar.slider("image height (px)", 300, 1400, 600, 50)
 random_state = st.sidebar.number_input("random seed", 0, value=42, step=1, help="fixes the random layout.")
@@ -927,4 +926,5 @@ with st.expander("ℹ️ how to use this app", expanded=False):
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
 
     """)
+
 
