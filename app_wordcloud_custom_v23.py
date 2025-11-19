@@ -693,7 +693,7 @@ st.sidebar.markdown("### 📊 tables")
 top_n = st.sidebar.number_input("number of top terms to display", 5, 10000, 20)
 st.sidebar.markdown("### 🔤 fonts")
 font_map, font_names = list_system_fonts(), list(list_system_fonts().keys())
-preferred_defaults = ["Arial", "DejaVu Sans", "Helvetica", "Times New Roman", "Verdana"]
+preferred_defaults = ["cmtt10", "cmr10", "Arial", "DejaVu Sans", "Helvetica", "Times New Roman", "Verdana"]
 default_font_index = prefer_index(font_names, preferred_defaults)
 combined_font_name = st.sidebar.selectbox("font for combined word cloud", font_names or ["(default)"], max(default_font_index, 0))
 combined_font_path = font_map.get(combined_font_name) if font_names else None
@@ -927,3 +927,4 @@ with st.expander("ℹ️ how to use this app", expanded=False):
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
 
     """)
+
