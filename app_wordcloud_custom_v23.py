@@ -610,7 +610,7 @@ st.title("🧠 multi-file word cloud generator (streaming + sentiment)[v24]")
 st.warning("""
 **⚠️ Data Privacy & Security Notice**
 
-UPSHOT: When in doubt, pre-sanitize your data. It's easy to do, and there are several simple ways to do this. This is a public app running on Streamlit Community Cloud. **Do not upload files containing sensitive, private, or proprietary information.** All data you upload is processed on public servers. Please ensure your data is anonymized or masked *before* uploading.
+UPSHOT: When in doubt, pre-sanitize your data. It's easy to do, and there are several simple ways to do this. See the "how to use this app" section at bottom of page. This is a public app running on Streamlit Community Cloud. **Do not upload files containing sensitive, private, or proprietary information.** All data you upload is processed on public servers. Please ensure your data is anonymized or masked *before* uploading.
 """)
 
 analyzer = setup_sentiment_analyzer()
@@ -906,3 +906,4 @@ with st.expander("ℹ️ how to use this app", expanded=False):
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
 
     """)
+
