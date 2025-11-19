@@ -1,35 +1,12 @@
-#     app_wordcloud_custom_v23.py
+#     app_wordcloud_custom_v24.py
 #  OPTIMIZED FOR DEPLOYMENT
 # directory setup:
 #   cd c:\users\oakhtar\documents\pyprojs_local  (replace name/path if needed)
 # RUN -
 #
-#     streamlit run app_wordcloud_custom_v23.py
+#     streamlit run app_wordcloud_custom_v24.py
 #
-#
-# multi-file word cloud generator (streaming + memory‑safe) with sentiment analysis
-# purpose: generate per-file and combined word clouds + top unigrams (optional bigrams) from large csvs/xlsx/vtt
-# input:
-#   - csv (single or multi-column): choose to treat each line as raw text, or select specific columns to join.
-#   - excel (.xlsx/.xlsm): select a sheet and specific columns to join.
-#   - vtt (.vtt): parse transcript text directly, ignoring timestamps and cues.
-# defaults:
-#   - csv 'raw lines' mode is fastest if each line is one record of text.
-#   - for multi-column csv/excel, stream only the selected columns for minimal memory usage.
-# key options (sidebar):
-#   - random seed, image size, colormap, background color, fonts.
-#   - cleaning: strip html, unescape entities, remove urls; keep hyphens/apostrophes.
-#   - stopwords: single words and phrases; optional common prepositions; integers; minimum word length.
-#   - sentiment analysis: enable/disable, set thresholds and colors for positive/neutral/negative terms.
-#   - performance: csv reader mode (raw lines, streaming csv columns, or pandas), csv chunk size (pandas), encoding.
-# outputs:
-#   - per-file and combined word clouds (png), top unigrams (csv), optional bigrams (csv).
-# performance updates (v21-v23):
-#   - [v21] expanded artifact cleaning to support zoom and teams transcripts (VTT timestamps, bracketed annotations).
-#   - [v22] added direct support for .vtt file uploads with a dedicated, streaming VTT parser.
-#   - [v23] added prominent data privacy disclaimers for safe public deployment.
-# dependencies: python 3.10+, streamlit, pandas, matplotlib, wordcloud, openpyxl, nltk
-# run: streamlit run this_file.py
+# v24 update: Fixed a NameError that occurred after a line was accidentally deleted during an edit. Restored the 'max_words' slider definition.
 
 import io
 import re
@@ -627,7 +604,7 @@ def fig_to_png_bytes(fig: plt.Figure) -> BytesIO:
 # ---------------------------
 
 st.set_page_config(page_title="multi-file word cloud generator", layout="wide")
-st.title("🧠 multi-file word cloud generator (streaming + sentiment)[v23]")
+st.title("🧠 multi-file word cloud generator (streaming + sentiment)[v24]")
 
 # --- V23: ADDED PROMINENT DATA PRIVACY DISCLAIMER ---
 st.warning("""
@@ -648,12 +625,15 @@ uploaded_files = st.sidebar.file_uploader(
     help="Warning: Do not upload sensitive data. This app runs on a public server." # V23: Added help text for privacy
 )
 
+# --- v24 FIX STARTS HERE: Restoring the full "appearance" block ---
 st.sidebar.markdown("### 🎨 appearance")
 bg_color = st.sidebar.color_picker("background color", value="#ffffff")
 colormap = st.sidebar.selectbox("colormap (for neutral words)", options=["viridis", "plasma", "inferno", "magma", "cividis", "tab10", "tab20", "Dark2", "Set3", "rainbow", "cubehelix", "prism", "Blues", "Greens", "Oranges", "Reds", "Purples", "Greys"], index=0)
+max_words = st.sidebar.slider("max words in word cloud", 50, 3000, 1000, 50)
 width = st.sidebar.slider("image width (px)", 600, 2400, 1200, 100)
 height = st.sidebar.slider("image height (px)", 300, 1400, 600, 50)
 random_state = st.sidebar.number_input("random seed", 0, value=42, step=1, help="fixes the random layout.")
+# --- v24 FIX ENDS HERE ---
 
 st.sidebar.markdown("### 🔬 sentiment analysis")
 enable_sentiment = st.sidebar.checkbox("enable sentiment analysis", value=False, help="colours words by sentiment. requires `nltk` library")
@@ -681,7 +661,7 @@ keep_apostrophes = st.sidebar.checkbox("keep apostrophes (e.g., don't)", value=F
 
 # sidebar: stopwords
 st.sidebar.markdown("### 🛑 stopwords")
-user_input = st.sidebar.text_area("words/phrases to ignore (comma-separated)", value="snhu, snhutest, snhudev, firstname.lastname, jane doe", help="phrases and usernames are supported (e.g., 'machine learning', 'firstname.lastname', 'jane doe').")
+user_input = st.sidebar.text_area("words/phrases to ignore (comma-separated)", value="firstname.lastname, jane doe", help="phrases and usernames are supported (e.g., 'machine learning', 'firstname.lastname', 'jane doe').")
 user_phrase_stopwords, user_single_stopwords = parse_user_stopwords(user_input)
 add_preps = st.sidebar.checkbox("remove common prepositions", value=True)
 drop_integers = st.sidebar.checkbox("remove integer-only tokens", value=True)
@@ -926,6 +906,3 @@ with st.expander("ℹ️ how to use this app", expanded=False):
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
 
     """)
-
-
-
