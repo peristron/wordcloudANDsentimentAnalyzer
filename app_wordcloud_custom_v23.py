@@ -902,7 +902,7 @@ if combined_counts:
 # ---------------------------
 # help / guide
 # ---------------------------
-with st.expander("ℹ️ how to use this app", expanded=True):
+with st.expander("ℹ️ how to use this app", expanded=False):
     # V23: Added privacy warning to help section
     st.error("**Important:** Never upload files with private or sensitive information. All data is processed on public servers.")
     
@@ -925,4 +925,5 @@ with st.expander("ℹ️ how to use this app", expanded=True):
       - Fine-tune what gets included by removing HTML, URLs, short words, and custom stopwords (like speaker names).
     - **Performance:** This app is designed for large files using streaming. Bi-gram computation is optional.
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
+
     """)
