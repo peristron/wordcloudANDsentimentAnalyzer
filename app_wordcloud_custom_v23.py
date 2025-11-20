@@ -603,8 +603,8 @@ def fig_to_png_bytes(fig: plt.Figure) -> BytesIO:
 # streamlit app
 # ---------------------------
 
-st.set_page_config(page_title="multi-file word cloud generator", layout="wide")
-st.title("🧠 multi-file word cloud generator (streaming + sentiment)[v24]")
+st.set_page_config(page_title="multi-file word cloud generator[v24]", layout="wide")
+st.title("🧠 multi-file word cloud generator (streaming + sentiment)")
 
 # --- V23: ADDED PROMINENT DATA PRIVACY DISCLAIMER ---
 st.warning("""
@@ -906,4 +906,5 @@ with st.expander("ℹ️ how to use this app", expanded=False):
     - **Outputs:** Download word clouds and CSV files for top unigrams and bi-grams.
 
     """)
+
 
